@@ -26,13 +26,14 @@
             padding: 20px; 
         }
 
-        /* 修正：width: fit-content を追加して画像にピッタリ合わせる */
+        /* 修正：width: fit-content を追加して画像に合わせる */
         #canvas-container { 
             position: relative; 
             border: 1px solid #ddd; 
             background: white; 
+            margin: 20px 0; 
+            touch-action: none; 
             line-height: 0; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: fit-content; 
         }
         canvas { position: absolute; top: 0; left: 0; cursor: crosshair; }
@@ -81,9 +82,9 @@
 
         <div class="card-selector">
             <div style="font-size: 11px; color: #888;">カードを選択</div>
-            <button class="card-btn active" onclick="changeCard('Card1.png', this)"><span>お祝い</span><span>🎉</span></button>
-            <button class="card-btn" onclick="changeCard('Card2.png', this)"><span>ホラー</span><span>👻</span></button>
-            <button class="card-btn" onclick="changeCard('Card10.png', this)"><span>ふつう</span><span>✉️</span></button>
+            <button class="card-btn active" onclick="changeCard('Card1.png', this)"><span>祝</span><span>🎉</span></button>
+            <button class="card-btn" onclick="changeCard('Card2.png', this)"><span>怖</span><span>👻</span></button>
+            <button class="card-btn" onclick="changeCard('Card10.png', this)"><span>白</span><span>✉️</span></button>
         </div>
     </div>
 
@@ -117,7 +118,7 @@
         bgImg.onload = () => { adjustCanvasSize(); initCtx(); };
         if (bgImg.complete) { adjustCanvasSize(); initCtx(); }
 
-        // 修正：精密なサイズ計測とコンテナの同期
+        // 修正：キャンバスとコンテナのサイズを画像に同期
         function adjustCanvasSize() {
             canvas.width = bgImg.naturalWidth;
             canvas.height = bgImg.naturalHeight;
@@ -254,7 +255,7 @@
                 tempCtx.drawImage(bgImg, 0, 0);
                 tempCtx.drawImage(canvas, 0, 0);
                 const link = document.createElement('a');
-                link.download = 'card.png';
+                link.download = 'post_tool_letter.png';
                 link.href = tempCanvas.toDataURL('image/png');
                 link.click();
             } catch (e) { alert("保存に失敗しました。GitHub Pagesで公開すると解決します！"); }
