@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>トラ雄郵便局 - お手紙作成</title>
+    <title>お手紙作成ページ</title>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; display: flex; flex-direction: column; align-items: center; background: #f8f8f8; font-family: 'Shippori Mincho', serif; min-height: 100vh; }
         
-        /* コントロールパネル */
+        /* 上段：ツールコントロール */
         .controls { padding: 15px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; background: #fff; width: 100%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         
-        /* デザイン選択エリア */
-        .card-selector { padding: 10px; display: flex; gap: 10px; overflow-x: auto; background: #eee; width: 100%; justify-content: center; }
-        .card-btn { padding: 5px 12px; font-size: 12px; background: #fff; border: 1px solid #ccc; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .card-btn.active { background: #4CAF50; color: white; border-color: #4CAF50; }
+        /* 下段：便箋デザイン選択（円形ボタンエリア） */
+        .card-selector { padding: 20px 10px; display: flex; gap: 20px; overflow-x: auto; background: #f0f0f0; width: 100%; justify-content: center; align-items: center; }
+
+        /* 円形ボタンのスタイル */
+        .card-btn { 
+            width: 100px; /* ボタンの直径 */
+            height: 100px; 
+            border-radius: 50%; /* 正円にする */
+            background: white; 
+            border: 2px solid #ccc; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            font-family: sans-serif; /* 文字は読みやすく */
+            font-weight: bold;
+            font-size: 16px; /* 上段のボタンと同じくらいのサイズ */
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            line-height: 1.2;
+            word-break: break-all;
+            padding: 5px;
+        }
+        .card-btn.active { background: #4CAF50; color: white; border-color: #4CAF50; transform: scale(1.1); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        .card-btn:hover { transform: translateY(-3px); }
 
         #canvas-container { position: relative; border: 1px solid #ddd; background: white; margin: 20px 0; touch-action: none; line-height: 0; }
         canvas { position: absolute; top: 0; left: 0; cursor: crosshair; }
         #bg-image { display: block; max-width: 100%; height: auto; pointer-events: none; }
         
-        button { padding: 10px 18px; font-weight: bold; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; background: white; transition: 0.2s; font-family: sans-serif; }
+        /* 上段の通常ボタン */
+        button { padding: 10px 18px; font-weight: bold; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; background: white; transition: 0.2s; font-family: sans-serif; font-size: 16px; }
         button.active { background: #333; color: white; border-color: #333; }
         .btn-clear { background: #fff; color: #ff4d4d; border: 1px solid #ff4d4d; }
         .btn-save { background: #4CAF50; color: white; border: none; }
@@ -48,10 +71,10 @@
     </div>
 
     <div class="card-selector">
-        <button class="card-btn active" onclick="changeCard('Card1.png', this)">祝🌸</button>
-        <button class="card-btn" onclick="changeCard('Card2.png', this)">怖👻</button>
-        <button class="card-btn" onclick="changeCard('Card10.png', this)">白✉️</button>
-        </div>
+        <button class="card-btn active" onclick="changeCard('Card1.png', this)"><span>お祝い</span><span>🎉</span></button>
+        <button class="card-btn" onclick="changeCard('Card2.png', this)"><span>ホラー</span><span>👻</span></button>
+        <button class="card-btn" onclick="changeCard('Card10.png', this)"><span>ふつう</span><span>✉️</span></button> 
+   </div>
 
     <div id="text-input-overlay">
         <textarea id="temp-text" placeholder="メッセージを入力..."></textarea>
@@ -76,9 +99,8 @@
         let drawing = false;
         let mode = 'pen';
         let textPos = { x: 0, y: 0 };
-        const charSpacing = 4; // 文字間調整
+        const charSpacing = 4;
 
-        // 画像の読み込み完了時にサイズを合わせる
         bgImg.onload = () => { adjustCanvasSize(); initCtx(); };
         if (bgImg.complete) { adjustCanvasSize(); initCtx(); }
 
@@ -90,12 +112,8 @@
         }
         window.onresize = adjustCanvasSize;
 
-        // --- 便箋を切り替える関数 ---
         function changeCard(fileName, btnElement) {
-            // 画像を切り替え
             bgImg.src = fileName;
-            
-            // ボタンの見た目を更新
             document.querySelectorAll('.card-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
         }
