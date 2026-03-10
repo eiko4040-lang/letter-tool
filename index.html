@@ -255,7 +255,7 @@
                 tempCtx.drawImage(bgImg, 0, 0);
                 tempCtx.drawImage(canvas, 0, 0);
                 const link = document.createElement('a');
-                link.download = 'post_tool_letter.png';
+                link.download = 'card.png';
                 link.href = tempCanvas.toDataURL('image/png');
                 link.click();
             } catch (e) { alert("保存に失敗しました。GitHub Pagesで公開すると解決します！"); }
