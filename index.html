@@ -42,7 +42,7 @@
         /* 円形ボタン（便箋選択） */
         .card-selector { display: flex; flex-direction: column; gap: 15px; align-items: center; border-top: 1px solid #eee; padding-top: 10px; width: 100%; }
         .card-btn { 
-            width: 80px; height: 80px; border-radius: 50%; background: white; border: 2px solid #ccc; cursor: pointer;
+            width: 80px; height: 80px; border-radius: 50%; background: white; border: 1px solid #ccc; cursor: pointer;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             font-family: sans-serif; font-weight: bold; font-size: 17px; transition: 0.3s; padding: 5px;
         }
@@ -50,7 +50,7 @@
 
         /* ツールボタン */
         button.tool-btn { 
-            width: 100%; padding: 12px 5px; font-weight: bold; border-radius: 8px; border: 2px solid #ccc;
+            width: 100%; padding: 12px 5px; font-weight: bold; border-radius: 8px; border: 1px solid #ccc;
             cursor: pointer; background: white; font-family: sans-serif; font-size: 14px;
         }
         button.tool-btn.active { background: #333; color: white; border-color: #333; }
@@ -82,9 +82,9 @@
 
         <div class="card-selector">
             <div style="font-size: 15px; color: #888;">カードを選択</div>
-            <button class="card-btn active" onclick="changeCard('Card1.png', this)"><span>祝 🎉</span></button>
-            <button class="card-btn" onclick="changeCard('Card2.png', this)"><span>怖 👻</span></button>
-            <button class="card-btn" onclick="changeCard('Card10.png', this)"><span>白 ✉️</span></button>
+            <button class="card-btn active" onclick="changeCard('Card1.png', this)"><span>お祝い</span></button>
+            <button class="card-btn" onclick="changeCard('Card2.png', this)"><span>ホラー</span></button>
+            <button class="card-btn" onclick="changeCard('Card10.png', this)"><span>白</span></button>
         </div>
     </div>
 
