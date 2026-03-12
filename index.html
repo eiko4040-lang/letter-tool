@@ -156,12 +156,11 @@
 
         function setMode(newMode) {
             mode = newMode;
-            document.getElementById('hand-btn').classList.toggle('active', mode === 'hand');
             document.getElementById('pen-btn').classList.toggle('active', mode === 'pen');
             document.getElementById('text-btn').classList.toggle('active', mode === 'text');
             document.getElementById('eraser-btn').classList.toggle('active', mode === 'eraser');
             
-            canvas.style.cursor = (mode === 'hand') ? 'grab' : 'crosshair';
+            canvas.style.cursor = 'crosshair';
             updatePenStyle();
         }
 
